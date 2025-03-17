@@ -1,28 +1,30 @@
 
 ### Уровень 1: 
-Для разделения проекта Mesto на микрофронтенды, я выберу **Webpack Module Federation**. Этот подход позволяет динамически загружать части приложения из разных источников, что делает его идеальным для микрофронтендов
+Для разделения проекта Mesto на микрофронтенды, я выберу **Webpack Module Federation**. Судя по материалу курса, он более простой и лучше подойдет для такого небольшого проекта.
 
 
-#### Решение
-- **Микрофронтенды**:
+### Уровень 2:
+
+**Микрофронтенды**:
   1. **Auth Microfrontend**: Управление аутентификацией (вход, регистрация).
   2. **Profile Microfrontend**: Управление профилем пользователя (создание, редактирование).
   3. **Gallery Microfrontend**: Управление фотографиями (загрузка, удаление, лайки).
   4. **Host**: Основное приложение, которое интегрирует все микрофронтенды.
-
-### Уровень 2: Планирование изменений
 
 #### Структура проекта
 ```plaintext
 /microfrontend
   /auth-microfrontend
     /src
+      /context
+        CurrentUserContext.js
       /components
+        InfoToolTip.js
         Login.js
         Register.js
       /styles
-        login.css
-        register.css
+        /auth-form
+        /login
       /utils
         auth.js
       index.js
@@ -31,26 +33,38 @@
   /profile-microfrontend
     /src
       /components
-        Profile.js
+        EditAvatar.js
         EditProfile.js
       /styles
-        profile.css
-        edit-profile.css
-      /utils
-        profile.js
+        /__add-button
+        /__description
+        /__edit_button
+        /__image
+        /__info
+        /__title
+      /images
+        add-icon.svg
+        avatar.jpg
       index.js
     package.json
     webpack.config.js
   /gallery-microfrontend
     /src
       /components
-        Gallery.js
-        Photo.js
+        AddPlacePopup.js
+        Card.js
+        ImagePopup.js
       /styles
-        gallery.css
-        photo.css
-      /utils
-        gallery.js
+        /card
+        /places
+      /images
+        card_1.jpg
+        card_2.jpg
+        card_3.jpg
+        delete-icon.svg
+        edit-icon.svg
+        like-active.svg
+        like-inactive.svg
       index.js
     package.json
     webpack.config.js
@@ -68,7 +82,5 @@
   README.md
 ```
 
-#### Обоснование
-- **Auth Microfrontend**: Отделение логики аутентификации позволяет независимо разрабатывать и тестировать функции входа и регистрации.
-- **Profile Microfrontend**: Управление профилем пользователя выделено в отдельный микрофронтенд для упрощения поддержки и масштабирования.
-- **Gallery Microfrontend**: Функции, связанные с фотографиями, выделены в отдельный микрофронтенд для независимой разработки и деплоя.
+Такое разделение было выбрано на основе функциональности монолитного приложения, с учетом принципов DDD
+
